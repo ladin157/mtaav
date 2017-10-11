@@ -1,0 +1,108 @@
+{% extends 'mtaupload/base.html' %}
+{% block categories_active %}active{% endblock %}
+
+{% block body %}
+<div class="categories-container container-fluid">
+
+    <!-- Categories -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{ user.username }}'s Categories</h3>
+        </div>
+        {% if categories %}
+            {% for category in categories %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                        <a href="{% url 'static:detail' category.id %}">
+                            <img src="{{ category.category_logo.url }}" class="img-responsive">
+                        </a>
+                        <div class="caption">
+                            <h2>{{ category.category_title }}</h2>
+                            <h4>{{ category.provider }}</h4>
+
+                            <!-- View Details -->
+                            <a href="{% url 'static:detail' category.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                            <!-- Delete Category -->
+                            <form action="{% url 'static:delete_category' category.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="category_id" value="{{ category.id }}" />
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+
+                            <!-- Favorite Category -->
+                            <a href="{% url 'static:favorite_category' category.id %}" class="btn btn-default btn-sm btn-favorite" role="button">
+                                <span class="glyphicon glyphicon-star {% if category.is_favorite %}active{% endif %}"></span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'static:create_category' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add a Category
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- If user searches and there are files -->
+    {% if files %}
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Files</h3>
+            </div>
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Filename</th>
+                                    <th>Provider</th>
+                                    <th>File Data</th>
+                                    <th>Category</th>
+                                    <th>Favorite</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for file in files %}
+                                    <tr>
+                                        <td>{{ file.filename }}</td>
+                                        <td>{{ file.category.provider }}</td>
+                                        <td>
+                                            <a target="_blank" href="{{ file.data_file.url }}">
+                                                <button type="button" class="btn btn-success btn-xs">
+                                                    <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'static:detail' file.category.id %}">
+                                                <img src="{{ file.category.category_logo.url }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;" />
+                                            </a>
+                                            <a href="{% url 'static:detail' file.category.id %}">{{ file.category.category_title }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'static:favorite' file.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if file.is_favorite %}active{% endif %}"></span></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
