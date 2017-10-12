@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^files/(?P<filter_by>[a-zA_Z]+)/$', views.files, name='files'),
     url(r'^create_category/$', views.create_category, name='create_category'),
     url(r'^(?P<category_id>[0-9]+)/create_file/$', views.create_file, name='create_file'),
-    url(r'^(?P<category_id>[0-9]+)/delete_file/(?P<song_id>[0-9]+)/$', views.delete_file, name='delete_file'),
+    url(r'^(?P<category_id>[0-9]+)/delete_file/(?P<file_id>[0-9]+)/$', views.delete_file, name='delete_file'),
     url(r'^(?P<category_id>[0-9]+)/favorite_category/$', views.favorite_category, name='favorite_category'),
     url(r'^(?P<category_id>[0-9]+)/delete_category/$', views.delete_category, name='delete_category'),
 ]

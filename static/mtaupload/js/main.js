@@ -1,7 +1,7 @@
 
 var CategoriesListPage = {
 	init: function() {
-		this.$container = $('.albums-container');
+		this.$container = $('.categories-container');
 		this.render();
 		this.bindEvents();
 	},
@@ -29,7 +29,7 @@ var CategoriesListPage = {
 
 var FilesListPage = {
 	init: function() {
-		this.$container = $('.songs-container');
+		this.$container = $('.files-container');
 		this.render();
 		this.bindEvents();
 	},

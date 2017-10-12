@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^$',include('mtaweb.urls')),
+    url(r'^',include('mtaweb.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^mtaav/', include('mtaweb.urls')),
     url(r'^upload/', include('mtaupload.urls'))

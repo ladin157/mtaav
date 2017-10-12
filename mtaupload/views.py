@@ -5,8 +5,8 @@ from .models import Category, File
 from django.http import JsonResponse
 from django.contrib.auth import logout, login, authenticate
 
-AUDIO_FILE_TYPES = ['wav', 'mp3', 'ogg']
-IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
+# AUDIO_FILE_TYPES = ['wav', 'mp3', 'ogg']
+# IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 
 # Create your views here.
 
@@ -19,15 +19,15 @@ def create_category(request):
             category = form.save(commit=True)
             category.user = request.user
             category.category_logo = request.FILES['category_logo']
-            file_type = category.category_logo.url.split('.')[-1]
-            file_type = file_type.lower()
-            if file_type not in IMAGE_FILE_TYPES:
-                context = {
-                    'category': category,
-                    'form': form,
-                    'error_message':'Image file must be PNG, JPG, or JPEG',
-                }
-                return render(request, 'mtaupload/create_category.html', context)
+            # file_type = category.category_logo.url.split('.')[-1]
+            # file_type = file_type.lower()
+            # if file_type not in IMAGE_FILE_TYPES:
+            #     context = {
+            #         'category': category,
+            #         'form': form,
+            #         'error_message':'Image file must be PNG, JPG, or JPEG',
+            #     }
+            #     return render(request, 'mtaupload/create_category.html', context)
             category.save()
             return render(request, 'mtaupload/detail.html', {'category':category})
         context = {'form':form}
@@ -49,15 +49,15 @@ def create_file(request, category_id):
         file = form.save(commit=False)
         file.category = category
         file.data_file = request.FILES['data_file']
-        file_type = file.data_file.url.split('.')[-1]
-        file_type = file_type.lower()
-        if file_type not in AUDIO_FILE_TYPES:
-            context = {
-                'category': category,
-                'form': form,
-                'error_message': 'Audio file must be WAV, MP3, or OGG',
-            }
-            return render(request, 'mtaupload/create_file.html', context)
+        # file_type = file.data_file.url.split('.')[-1]
+        # file_type = file_type.lower()
+        # if file_type not in AUDIO_FILE_TYPES:
+        #     context = {
+        #         'category': category,
+        #         'form': form,
+        #         'error_message': 'Audio file must be WAV, MP3, or OGG',
+        #     }
+        #     return render(request, 'mtaupload/create_file.html', context)
 
         file.save()
         return render(request, 'mtaupload/detail.html', {'category': category})
