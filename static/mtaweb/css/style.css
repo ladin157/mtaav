@@ -1110,3 +1110,12 @@
 					margin-left: 0;
 					padding-left: 0;
 				}
+
+.system-requirements {
+    padding: 80px 20px;
+}
+.system-requirements {
+    background-color: #E7E7EF;
+    padding: 75px 160px 62px;
+    text-align: center;
+}
